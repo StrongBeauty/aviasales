@@ -1,0 +1,107 @@
+[
+  {
+    "time": {
+      "hour": 7,
+      "minute": 15,
+      "second": 33,
+      "nano": 34
+    },
+    "tailNumber": "string",
+    "tripId": 1,
+    "numberOfFreeTickets": 0,
+    "note": "string",
+    "data": [
+      {
+        "id": 1,
+        "flightId": 23213123,
+        "seat": "21",
+        "price": 190,
+        "orderStatus": false
+      },
+      {
+        "id": 2,
+        "flightId": 345345345,
+        "seat": "32",
+        "price": 190,
+        "orderStatus": false
+      },
+      {
+        "id": 3,
+        "flightId": 56567567,
+        "seat": "85",
+        "price": 190,
+        "orderStatus": false
+      }
+    ]
+  },
+  {
+    "time": {
+      "hour": 10,
+      "minute": 51,
+      "second": 20,
+      "nano": 45
+    },
+    "tailNumber": "string",
+    "tripId": 2,
+    "numberOfFreeTickets": 0,
+    "note": "string",
+    "data": [
+      {
+        "id": 5,
+        "flightId": 8773123,
+        "seat": "18",
+        "price": 70,
+        "orderStatus": false
+      },
+      {
+        "id": 6,
+        "flightId": 2325645,
+        "seat": "23",
+        "price": 70,
+        "orderStatus": false
+      },
+      {
+        "id": 7,
+        "flightId": 98097533,
+        "seat": "21",
+        "price": 70,
+        "orderStatus": false
+      }
+    ]
+  },
+  {
+    "time": {
+      "hour": 6,
+      "minute": 30,
+      "second": 20,
+      "nano": 45
+    },
+    "tailNumber": "string",
+    "tripId": 3,
+    "numberOfFreeTickets": 0,
+    "note": "string",
+    "data": [
+      {
+        "id": 5,
+        "flightId": 8773123,
+        "seat": "18",
+        "price": 90,
+        "orderStatus": false
+      },
+      {
+        "id": 6,
+        "flightId": 2325645,
+        "seat": "23",
+        "price": 120,
+        "orderStatus": false
+      },
+      {
+        "id": 7,
+        "flightId": 98097533,
+        "seat": "21",
+        "price": 120,
+        "orderStatus": false
+      }
+    ]
+  }
+]
