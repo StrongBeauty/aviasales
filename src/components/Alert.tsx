@@ -2,8 +2,9 @@ import React, { FC } from 'react';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
-type AppProps = { message: string };
-const Alerts: FC<AppProps> = ({ message }) => {
+type AlertsProps = { message: string };
+
+export const Alerts: FC<AlertsProps> = ({ message }) => {
   if (message === 'success') {
     return (
       <Stack sx={{ width: '100%' }} spacing={2}>
@@ -25,5 +26,3 @@ const Alerts: FC<AppProps> = ({ message }) => {
     </Stack>
   );
 };
-
-export { Alerts };

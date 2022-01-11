@@ -1,15 +1,7 @@
-type ThemeColor = {
-  main: {
-    primary: string;
-    secondary: string;
-    common: string;
-  };
-};
-
-export const themeColor: ThemeColor = {
+export const themeColor = {
   main: {
     primary: '#4881FF',
-    secondary: '#D9E0F4',
-    common: '#fff',
+    secondary: 'fff',
+    common: '#D9E0F4',
   },
-};
+} as const;

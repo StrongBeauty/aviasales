@@ -10,17 +10,12 @@ interface IStyleButton {
 export const ButtonPrimary: FC<IStyleButton> = ({
   children,
   onClick,
-  disabled,
+  disabled = false,
   ...props
 }: IStyleButton) => {
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <Button {...props} onClick={onClick} disabled={disabled}>
       {children}
     </Button>
   );
-};
-
-ButtonPrimary.defaultProps = {
-  disabled: false,
 };

@@ -7,7 +7,7 @@ export const actions = {
     ({ type: ACTIONS_TYPE.LOAD_IMAGE, payload: { backgroundImag } } as const),
   toggleIsDirectAC: (isDirect: boolean) =>
     ({ type: ACTIONS_TYPE.TOGGLE_IS_DIRECT, payload: { isDirect } } as const),
-  tripsCardAC: (result: any[]) =>
+  tripsCardAC: (result: ResultType) =>
     ({
       type: ACTIONS_TYPE.TRIPS_CARD,
       payload: { result },
@@ -21,5 +21,40 @@ export const actions = {
 export type SelectedFiltersType = {
   title: string;
   value: string;
-  defaultValue: string;
+  defaultValue: string | number | Date;
 };
+export type TripCardType = {
+  time: TimeType;
+  tripId: number;
+  numberOfFreeTickets: number;
+  data: TicketType[];
+  note: string;
+  tailNumber: string;
+};
+
+export type TimeType = {
+  hour: number;
+  minute: number;
+  second: number;
+  nano: number;
+};
+
+export type TicketType = {
+  id: number;
+  flightId: number;
+  seat: string;
+  price: number;
+  orderStatus: boolean;
+};
+
+export type UserType = {
+  isAuth: boolean;
+  name: string;
+};
+
+export type TicketDataType = {
+  departureCity: string;
+  arrivalCity: string;
+  date: string;
+};
+export type ResultType = [TripCardType[], TicketDataType];

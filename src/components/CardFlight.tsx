@@ -17,16 +17,16 @@ interface TypePropsFlight {
   buttonStatus: boolean;
 }
 
-const CardFlight: FC<TypePropsFlight> = ({
+export const CardFlight: FC<TypePropsFlight> = ({
   id,
-  departureCity,
-  arrivalCity,
-  date,
-  time,
-  price,
-  type,
+  departureCity = 'New York(JFK)',
+  arrivalCity = 'London(LHR)',
+  date = 'Mon 4 Feb',
+  time = '0 hour 0 minute',
+  price = '0 USD',
+  type = 'standard',
   buttonStatus,
-}) => {
+}: TypePropsFlight) => {
   const { buttonName } = MESSAGES.cardFlight;
   const navigate = useNavigate();
 
@@ -133,16 +133,4 @@ const CardFlight: FC<TypePropsFlight> = ({
       </Card>
     </SCard>
   );
-};
-
-export { CardFlight };
-
-CardFlight.defaultProps = {
-  departureCity: 'New York(JFK)',
-  arrivalCity: 'London(LHR)',
-  date: 'Mon 4 Feb',
-  time: '0 hour 0 minute',
-  id: 1,
-  price: '0 USD',
-  type: 'standard',
 };

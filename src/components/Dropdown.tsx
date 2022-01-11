@@ -8,7 +8,7 @@ type useStylesProps = {
 };
 type DropdownMenuProps = {
   title: string;
-  items: [object];
+  items: React.ReactNode[];
   value: number;
   handleChange: () => void;
   styleComponent: useStylesProps;

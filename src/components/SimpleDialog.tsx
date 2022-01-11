@@ -1,12 +1,17 @@
 import React, { FC } from 'react';
 import { Dialog } from '@mui/material';
 
-type simpleDialogProps = {
+type SimpleDialogProps = {
   onClose: () => void;
   isOpen: boolean;
+  children: React.ReactNode;
 };
 
-const SimpleDialog: FC<simpleDialogProps> = ({ children, onClose, isOpen }) => {
+export const SimpleDialog: FC<SimpleDialogProps> = ({
+  children,
+  onClose,
+  isOpen,
+}: SimpleDialogProps) => {
   const handleClose = () => {
     onClose();
   };
@@ -17,5 +22,3 @@ const SimpleDialog: FC<simpleDialogProps> = ({ children, onClose, isOpen }) => {
     </Dialog>
   );
 };
-
-export { SimpleDialog };

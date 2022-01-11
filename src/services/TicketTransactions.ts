@@ -1,21 +1,23 @@
-import React from 'react';
+import { TicketType, TripCardType } from '../store';
 
-export class TicketTransactions extends React.Component {
-  constructor(object, name) {
-    super();
+class TicketTransactions {
+  userName: string;
+
+  object: TripCardType[];
+
+  constructor(object: TripCardType[], name: string) {
     this.object = object;
     this.userName = name;
   }
 
-  getBookingTickets(num, classOrder) {
+  getBookingTickets(num: number, classOrder: string) {
     switch (classOrder) {
       case 'Economy':
         if (this.getClassEconomy().length >= num) {
-          const bookingTicketUser = this.getClassEconomy().slice(0, num);
-          bookingTicketUser.forEach(
-            // eslint-disable-next-line no-return-assign,no-param-reassign
-            (item) => (item.orderStatus = true)
-          );
+          const bookingTicketUser: TicketType[] = this.getClassEconomy().slice(0, num);
+          for (let i = 0; i < bookingTicketUser.length; i += 1) {
+            bookingTicketUser[i].orderStatus = true;
+          }
 
           return {
             name: this.userName,
@@ -27,10 +29,9 @@ export class TicketTransactions extends React.Component {
       case 'Business':
         if (this.getClassBusiness().length >= num) {
           const bookingTicketUser = this.getClassBusiness().slice(0, num);
-          bookingTicketUser.forEach(
-            // eslint-disable-next-line no-return-assign,no-param-reassign
-            (item) => (item.orderStatus = true)
-          );
+          for (let i = 0; i < bookingTicketUser.length; i += 1) {
+            bookingTicketUser[i].orderStatus = true;
+          }
           return {
             name: this.userName,
             tripId: this.object[0].tripId,
@@ -43,24 +44,6 @@ export class TicketTransactions extends React.Component {
     }
   }
 
-  sortPrice() {
-    return this.object.reduce((sum, current) => {
-      const [Business, Economy] = [[], []];
-
-      // eslint-disable-next-line array-callback-return
-      current.data.map((item) => {
-        if (item.price >= 100 && !item.orderStatus) {
-          Business.push({ ...item });
-        } else if (item.price < 100 && !item.orderStatus) {
-          Economy.push({ ...item });
-        }
-      });
-      // eslint-disable-next-line no-param-reassign
-      sum = { Business, Economy };
-      return sum;
-    }, {});
-  }
-
   getClassEconomy() {
     return Array.from(this.sortPrice().Economy);
   }
@@ -68,4 +51,30 @@ export class TicketTransactions extends React.Component {
   getClassBusiness() {
     return Array.from(this.sortPrice().Business);
   }
+
+  sortPrice() {
+    return this.object.reduce((sum, current) => {
+      const Business: TicketType[] = [];
+      const Economy: TicketType[] = [];
+
+      current.data.map((item) => {
+        if (item.price >= 100 && !item.orderStatus) {
+          return Business.push({ ...item });
+        }
+        if (item.price < 100 && !item.orderStatus) {
+          return Economy.push({ ...item });
+        }
+        return '';
+      });
+      sum = { Business, Economy };
+      return sum;
+    }, {} as ResultType);
+  }
 }
+
+export { TicketTransactions };
+
+type ResultType = {
+  Business: TicketType[];
+  Economy: TicketType[];
+};

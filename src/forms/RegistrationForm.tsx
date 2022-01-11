@@ -1,16 +1,36 @@
-import React, { useEffect, useRef } from 'react';
-import { useForm } from 'react-hook-form';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { FC, useEffect } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import Button from '@mui/material/Button';
 import { MESSAGES } from '../constants';
-import { ButtonPrimary } from '../components';
 
 const { formTitle, username, password, confirmPassword, buttonName, email, errorsMessage } =
   MESSAGES.registrationForm;
 
-export const RegistrationForm: React.FC = ({ setActiveForm, formControl, setHeight }) => {
-  const ref = useRef(0);
+type FormValues = {
+  username: string;
+  password: string;
+  passwordConfirmation: string;
+  email: string;
+};
+
+type FormProps = {
+  setActiveForm: (arg: boolean) => void;
+  formControl: {
+    formStyles: () => { minHeight: string } | {};
+    classToggle: () => string;
+    classFormOne: () => string;
+    classFormTwo: () => string;
+  };
+  setHeight: (arg: number | undefined) => void;
+};
+
+export const RegistrationForm: FC<FormProps> = ({ setActiveForm, formControl, setHeight }) => {
+  const ref = React.useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    setHeight(ref.current.clientHeight);
+    setHeight(ref.current?.clientHeight);
   });
 
   const {
@@ -19,9 +39,9 @@ export const RegistrationForm: React.FC = ({ setActiveForm, formControl, setHeig
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormValues>();
 
-  const onSubmit = () => {
+  const onSubmit: SubmitHandler<FormValues> = () => {
     reset();
   };
 
@@ -35,7 +55,6 @@ export const RegistrationForm: React.FC = ({ setActiveForm, formControl, setHeig
           <div className="form-group">
             <label htmlFor="username">{username}</label>
             <input
-              ref={register}
               style={errors.username && { border: '1px solid red' }}
               {...register('username', {
                 validate: (value) => value.length >= 2,
@@ -65,9 +84,8 @@ export const RegistrationForm: React.FC = ({ setActiveForm, formControl, setHeig
                 required: errorsMessage.passwordConfirmationInput,
                 validate: {
                   matchesPreviousPassword: (value) => {
-                    // eslint-disable-next-line no-shadow
+                    // eslint-disable-next-line @typescript-eslint/no-shadow
                     const { password } = getValues();
-                    // eslint-disable-next-line max-len
                     return password === value || errorsMessage.passwordConfirmationError;
                   },
                 },
@@ -92,9 +110,9 @@ export const RegistrationForm: React.FC = ({ setActiveForm, formControl, setHeig
             {errors.email && <p style={{ color: 'red' }}>{errorsMessage.email}</p>}
           </div>
           <div className="form-group">
-            <ButtonPrimary type="submit" height="46px">
+            <Button type="submit" sx={{ height: '46px' }}>
               {buttonName}
-            </ButtonPrimary>
+            </Button>
           </div>
         </form>
       </div>

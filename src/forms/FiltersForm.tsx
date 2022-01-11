@@ -1,24 +1,19 @@
-import React, { FC } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { ButtonPrimary, DateFilter, FormInput, FormSelect } from '../components';
+import Button from '@mui/material/Button';
+import { DateFilter, FormInput, FormSelect } from '../components';
 import { SFilterForm } from '../styled';
 import { MESSAGES } from '../constants';
 import { actions, Selectors } from '../store';
+import { FieldValues, FormValues } from './HomeForm';
 
-type formInput = {
-  From: string;
-  To: string;
-  Date: Date;
-  Class: string;
-};
-
-export const FiltersForm: FC = () => {
+export const FiltersForm: React.FC = () => {
   const dispatch = useDispatch();
-  const stateData = useSelector(Selectors.stateData);
+  const stateData = useSelector(Selectors.selectedFilters);
   const [fromState, toState, dateState, classState] = stateData;
   const { classFilter, labelFrom, labelTo, labelClass, buttonName } = MESSAGES.filterForm;
-  const { handleSubmit, control } = useForm<formInput>({
+  const { handleSubmit, control } = useForm<FieldValues>({
     defaultValues: {
       From: fromState.value,
       To: toState.value,
@@ -26,8 +21,9 @@ export const FiltersForm: FC = () => {
       Class: classState.defaultValue,
     },
   });
-  const onSubmit: SubmitHandler<formInput> = (data): void => {
-    const date = data.Date.toLocaleString('en-EN', {
+
+  const onSubmit = (data: FormValues) => {
+    const date = data.Date.toLocaleString('en-Gb', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
@@ -69,9 +65,7 @@ export const FiltersForm: FC = () => {
         items={MESSAGES.filterForm.classFilter}
         name="Class"
       />
-      <ButtonPrimary type="submit">
-        {buttonName}
-      </ButtonPrimary>
+      <Button type="submit">{buttonName}</Button>
     </SFilterForm>
   );
 };

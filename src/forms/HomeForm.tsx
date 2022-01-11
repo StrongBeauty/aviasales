@@ -5,15 +5,25 @@ import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 import SouthEastIcon from '@mui/icons-material/SouthEast';
-import { DateFilter, ButtonPrimary, FormInput } from '../components';
+import Button from '@mui/material/Button';
+import { DateFilter, FormInput } from '../components';
 import { SHomeForm } from '../styled';
 import { loadApi } from '../api/api';
 import { MESSAGES } from '../constants';
 import { actions } from '../store';
 
+export type FieldValues = Record<string, any>;
+
+export type FormValues = {
+  From: string;
+  To: string;
+  Date: Date;
+  Class: number;
+};
+
 export const HomeForm: React.FC = () => {
   const { labelTo, labelFrom, buttonName } = MESSAGES.homeForm;
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control } = useForm<FieldValues>({
     defaultValues: {
       From: '',
       To: '',
@@ -24,7 +34,7 @@ export const HomeForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: FormValues) => {
     const formDate = data.Date.toLocaleString('en-Gb', {
       day: '2-digit',
       month: '2-digit',
@@ -74,7 +84,7 @@ export const HomeForm: React.FC = () => {
         }}
       >
         <NorthEastIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-        <FormInput label={labelFrom} name="From" isRequired control={control} />
+        <FormInput label={labelFrom} name="From" control={control} isRequired />
       </Box>
       <Box
         sx={{
@@ -88,9 +98,9 @@ export const HomeForm: React.FC = () => {
         <FormInput label={labelTo} name="To" isRequired control={control} />
       </Box>
       <DateFilter name="Date" control={control} />
-      <ButtonPrimary type="submit" sx={{ mx: '10px' }}>
+      <Button type="submit" sx={{ mx: '10px' }}>
         {buttonName}
-      </ButtonPrimary>
+      </Button>
     </SHomeForm>
   );
 };

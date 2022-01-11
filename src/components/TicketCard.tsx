@@ -5,17 +5,26 @@ import { FormDialog } from './ModalDialog';
 import { ButtonPrimary } from './ButtonPrimary';
 import { SBoxTicketCard } from '../styled';
 import { MESSAGES } from '../constants';
+import { TicketType } from '../store';
+import { TicketTransactions } from '../services/TicketTransactions';
 
-type TicketCardType = {};
+type TicketCardPropsType = {
+  classes: string;
+  freeTickets: number;
+  ticketObject: TicketTransactions;
+  price: number | false;
+  classTicket: string;
+  ticketLength: TicketType[];
+};
 
-export const TicketCard: React.FC<TicketCardType> = ({
+export const TicketCard: React.FC<TicketCardPropsType> = ({
   classes,
   freeTickets,
   ticketObject,
   price,
   classTicket,
   ticketLength,
-}: TicketCardType) => {
+}: TicketCardPropsType) => {
   const [ticket, setTicket] = useState('');
   const onDisabled = (dis: number) => dis === 0;
   const handleChange = (event: SelectChangeEvent) => {
@@ -52,11 +61,9 @@ export const TicketCard: React.FC<TicketCardType> = ({
         </ButtonPrimary>
         <FormDialog
           buttonName={MESSAGES.tickedCard.buttons.buttonBook}
-          classes={classes}
           freeTickets={freeTickets}
           ticketObject={ticketObject}
           classTicket={classTicket}
-          ticketLenght={ticketLength}
           ticket={ticket}
           setTicket={setTicket}
         />

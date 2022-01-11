@@ -10,7 +10,7 @@ export const loadApi = async (departureCity: string, arrivalCity: string, date: 
   }
 };
 
-export const postApi = async (tripId: number, object: {}) => {
+export const postApi = async (tripId: number | undefined, object: {}) => {
   try {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -22,7 +22,6 @@ export const postApi = async (tripId: number, object: {}) => {
       method: 'POST',
       headers: myHeaders,
       body: urlencoded,
-      redirect: 'follow',
     };
 
     const response = await fetch(`http://localhost:8080/api/v1/trips/${tripId}`, requestOptions);

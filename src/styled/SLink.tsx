@@ -5,13 +5,10 @@ import { Link } from 'react-router-dom';
 interface IStyleProps {
   children: React.ReactNode;
   to: string;
-  onClick?: () => void;
-  props?: {};
 }
 
-const SLink: FC<IStyleProps> = styled(({ children, to, onClick, ...props }: IStyleProps) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <Link to={to} onClick={onClick} {...props}>
+export const SLink: FC<IStyleProps> = styled(({ children, to, ...props }: IStyleProps) => (
+  <Link to={to} {...props}>
     {children}
   </Link>
 ))`
@@ -34,5 +31,3 @@ const SLink: FC<IStyleProps> = styled(({ children, to, onClick, ...props }: ISty
     }
   }
 `;
-
-export { SLink, IStyleProps };

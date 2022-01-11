@@ -1,12 +1,13 @@
 import { ACTIONS_TYPE } from '../constants';
-import { actions, SelectedFiltersType } from '../actions';
+import { actions, ResultType, SelectedFiltersType, UserType } from '../actions';
 
 const initialState = {
   user: {
     isAuth: false,
     name: '',
   } as UserType,
-  tripsCard: [] as any, // as Array<TripsCardType>,
+  // todo
+  tripsCard: [] as ResultType,
   isDirect: false,
   errorAlert: '',
   backgroundImage: '',
@@ -14,7 +15,6 @@ const initialState = {
 };
 
 export const listState = (
-  // eslint-disable-next-line default-param-last
   state: AppStateType = initialState,
   action: ActionsType
 ): AppStateType => {
@@ -58,45 +58,6 @@ export const listState = (
     default:
       return state;
   }
-};
-
-export type TripCardType = {
-  time: TimeType;
-  tripId: number;
-  numberOfFreeTickets: number;
-  data: DataType[];
-};
-
-export type TimeType = {
-  hour: number;
-  minute: number;
-  second: number;
-  nano: number;
-};
-
-export type DataType = {
-  id: number;
-  flightId: number;
-  seat: string;
-  price: number;
-  orderStatus: boolean;
-};
-
-export type UserType = {
-  isAuth: boolean;
-  name: string;
-};
-
-export type ResultType = [TripCardType[], TicketDataType];
-
-export type TripsCardsType = {
-  result: ResultType;
-};
-
-export type TicketDataType = {
-  departureCity: string;
-  arrivalCity: string;
-  date: string;
 };
 
 /* export type RootReducerType = typeof listState;

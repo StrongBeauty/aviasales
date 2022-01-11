@@ -1,17 +1,28 @@
 import React from 'react';
-import { useController } from 'react-hook-form';
+import { Control, FieldName, FieldValues, useController } from 'react-hook-form';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
+import { ClassFilterType } from '../constants';
 
-export const FormSelect: React.FC = ({ control, label, items, name }) => {
+export type UseControllerFormSelectProps<TFieldValues extends FieldValues = FieldValues> = {
+  name: FieldName<TFieldValues>;
+  control?: Control<TFieldValues>;
+  label: string;
+  items: ClassFilterType;
+};
+
+export const FormSelect: React.FC<UseControllerFormSelectProps> = ({
+  control,
+  label,
+  items,
+  name,
+}) => {
   const {
     field: { onChange, onBlur, value, ref },
-    fieldState: { invalid, isTouched, isDirty },
-    formState: { touchedFields, dirtyFields },
+    /*    fieldState: { invalid, isTouched, isDirty },
+    formState: { touchedFields, dirtyFields }, */
   } = useController({
     control,
-    label,
-    items,
     name,
   });
 
@@ -26,7 +37,7 @@ export const FormSelect: React.FC = ({ control, label, items, name }) => {
       inputRef={ref}
     >
       {items.map((item, index) => (
-        <MenuItem key={index + item} value={index}>
+        <MenuItem key={item} value={index}>
           {item}
         </MenuItem>
       ))}

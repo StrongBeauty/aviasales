@@ -1,25 +1,43 @@
-import React from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import { MESSAGES } from '../constants';
-import { ButtonPrimary } from '../components';
 import { actions, Selectors } from '../store';
 
 const { formTitle, buttonName, username, checkboxForm, password, forgotLink, errorsMessage } =
   MESSAGES.authenticationForm;
-
-export const AuthenticationForm: React.FC = ({ formControl }) => {
+type FormProps = {
+  formControl: {
+    formStyles: () => { minHeight: string } | {};
+    classToggle: () => string;
+    classFormOne: () => string;
+    classFormTwo: () => string;
+  };
+};
+type FormValues = {
+  username: string;
+  password: string;
+  checkbox: boolean;
+};
+type DataType = {
+  checkbox: undefined | boolean;
+  password: string;
+  username: string;
+};
+export const AuthenticationForm: FC<FormProps> = ({ formControl }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormValues>();
   const dispatch = useDispatch();
   const isAuth = useSelector(Selectors.isAuth);
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: DataType) => {
     dispatch(actions.toggleIsAuthAC(!isAuth, data.username));
     navigate(-1);
   };
@@ -35,7 +53,6 @@ export const AuthenticationForm: React.FC = ({ formControl }) => {
             <label htmlFor="username">{username.toUpperCase()}</label>
 
             <input
-              ref={register}
               style={errors.username && { border: '1px solid red' }}
               {...register('username', {
                 validate: (value) => value.length >= 2,
@@ -63,15 +80,15 @@ export const AuthenticationForm: React.FC = ({ formControl }) => {
               <input type="checkbox" disabled {...register('checkbox')} />
               {checkboxForm}
             </label>
-            <a className="form-recovery" href="#">
+            <a className="form-recovery" href="/">
               {forgotLink}
             </a>
           </div>
 
           <div className="form-group">
-            <ButtonPrimary type="submit" height="46px">
+            <Button type="submit" sx={{ height: '46px' }}>
               {buttonName}
-            </ButtonPrimary>
+            </Button>
           </div>
         </form>
       </div>

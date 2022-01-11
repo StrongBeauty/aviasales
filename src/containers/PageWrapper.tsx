@@ -18,12 +18,11 @@ export const PageWrapper: React.FC<PageWrapperPropsType> = (props: PageWrapperPr
     const rand = min + Math.random() * (max + 1 - min);
     return Math.floor(rand);
   }
-  let backgroundUrl: string;
+  let backgroundUrl = backgroundImage;
   if (backgroundImage === '') {
     backgroundUrl = `/backgrounds/${getRandomNum()}.jpg`;
     dispatch(actions.loadImageAC(`/backgrounds/${getRandomNum()}.jpg`));
   }
-  backgroundUrl = backgroundImage;
 
   return (
     <SBox
@@ -35,10 +34,4 @@ export const PageWrapper: React.FC<PageWrapperPropsType> = (props: PageWrapperPr
       {children}
     </SBox>
   );
-};
-
-PageWrapper.defaultProps = {
-  flexDirection: 'row',
-  alignItems: 'normal',
-  justifyContent: 'normal',
 };

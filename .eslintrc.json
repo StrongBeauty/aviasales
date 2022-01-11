@@ -28,6 +28,16 @@
     "prettier"
   ],
   "rules": {
+    "jsx-a11y/label-has-associated-control": [ "error", {
+      "required": {
+        "some": [ "nesting", "id"  ]
+      }
+    }],
+    "jsx-a11y/label-has-for": [ "error", {
+      "required": {
+        "some": [ "nesting", "id"  ]
+      }
+    }],
     "no-unused-vars": [
       "error",
       {
@@ -35,6 +45,11 @@
         "argsIgnorePattern": "^..."
       }
     ],
+    "react/require-default-props": "off",
+    "consistent-return": "off",
+    "default-param-last": "off",
+    "@typescript-eslint/no-explicit-any": ["off"],
+    "react/jsx-props-no-spreading": "off",
     "react/function-component-definition": [
       2,
       {
@@ -43,6 +58,8 @@
       }
     ],
     "require-jsdoc": "off",
+    "no-param-reassign": "off",
+    "import/no-extraneous-dependencies": ["error",  {"devDependencies": true}],
     "import/prefer-default-export": "off",
     "no-shadow": "off",
     "@typescript-eslint/no-var-requires": 0,

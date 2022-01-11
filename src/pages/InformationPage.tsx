@@ -17,8 +17,7 @@ export const InformationPage: FC = () => {
   const date = tripCard && dataTime.date; // ...дата вылета
   const alert = useSelector(Selectors.errorAlert);
 
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  const alertInformationBlock = (alert: string) => {
+  const alertInformationBlock = () => {
     if (alert) {
       return <Alerts message={alert} />;
     }
@@ -39,7 +38,7 @@ export const InformationPage: FC = () => {
           </div>
         </InformationPageStyles>
       </PageWrapper>
-      <SAlert>{alertInformationBlock(alert)}</SAlert>
+      <SAlert>{alertInformationBlock()}</SAlert>
     </>
   );
 };

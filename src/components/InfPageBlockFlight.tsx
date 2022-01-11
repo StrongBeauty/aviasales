@@ -33,7 +33,6 @@ export const InfPageBlockFlight: React.FC<InfPageBlockFlightPropsType> = ({
                 {date}
               </Typography>
               <Typography color="primary" component="p" variant="h3">
-                {/* city сode with airport */}
                 JFK
               </Typography>
               <Typography component="p" variant="subtitle1">

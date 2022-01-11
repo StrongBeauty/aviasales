@@ -8,7 +8,7 @@ import { FiltersForm } from '../forms';
 import { PageWrapper } from '../containers';
 import { Selectors, TripCardType } from '../store';
 
-const ResultPage: React.FC = () => {
+export const ResultPage: React.FC = () => {
   const stateCard = useSelector(Selectors.stateCard);
   const stateData = useSelector(Selectors.stateData);
   const [tripCard, dataTime] = stateCard;
@@ -67,5 +67,3 @@ const ResultPage: React.FC = () => {
     </PageWrapper>
   );
 };
-
-export { ResultPage };

@@ -1,34 +1,44 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  TextField,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { postApi } from '../api/api';
-import { BaseInput } from './BaseInput';
 import { ButtonPrimary } from './ButtonPrimary';
 import { actions } from '../store';
 import { stateCard, userName } from '../store/selectors';
+import { TicketTransactions } from '../services/TicketTransactions';
 
-export const FormDialog: FC = ({
+type FormDialogPropsType = {
+  buttonName: string;
+  freeTickets: number;
+  ticketObject: TicketTransactions;
+  classTicket: string;
+  ticket: string;
+  setTicket: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const FormDialog: React.FC<FormDialogPropsType> = ({
   buttonName,
   freeTickets,
   ticketObject,
   classTicket,
   ticket,
   setTicket,
-}) => {
+}: FormDialogPropsType) => {
   const [open, setOpen] = useState(false);
   const [values, setValue] = useState({ userFullName: '' });
   const onDisabled = (dis: number) => dis === 0;
   const isUserName = useSelector(userName);
   const flightDate = useSelector(stateCard);
   const navigate = useNavigate();
-  const bookTickets = ticketObject.getBookingTickets(ticket, classTicket);
+  const bookTickets = ticketObject.getBookingTickets(+ticket, classTicket);
   const dispatch = useDispatch();
 
   const handleClickOpen = () => {
@@ -44,16 +54,15 @@ export const FormDialog: FC = ({
   const allTicketsInfo = {
     ...values,
     flightDate: flightDate[1].date.replace(/-/g, '.'),
-    tripId: bookTickets.tripId,
-    tickets: bookTickets.ticket.length,
-    priceAll: bookTickets.ticket[0] && bookTickets.ticket[0].price * bookTickets.ticket.length,
+    tripId: bookTickets?.tripId,
+    tickets: bookTickets?.ticket.length,
+    priceAll: bookTickets?.ticket[0] && bookTickets.ticket[0].price * bookTickets.ticket.length,
     userTickets: bookTickets,
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ userFullName: event.target.value });
   };
-  // eslint-disable-next-line consistent-return
   const handleSend = () => {
     if (values.userFullName.length < 10) {
       return false;
@@ -67,7 +76,9 @@ export const FormDialog: FC = ({
         if (result === 200) return dispatch(actions.errorAlertAC('success'));
         return dispatch(actions.errorAlertAC('Not sent.'));
       })
-      .then(setTimeout(() => dispatch(actions.errorAlertAC('')), 4000));
+      .then(() => {
+        setTimeout(() => dispatch(actions.errorAlertAC('')), 4000);
+      });
   };
 
   const handleClose = () => {
@@ -92,11 +103,8 @@ export const FormDialog: FC = ({
           <DialogContentText>Flight date: {allTicketsInfo.flightDate}</DialogContentText>
           <DialogContentText>Flight number: {allTicketsInfo.tripId}</DialogContentText>
           <DialogContentText>Of tickets: {allTicketsInfo.tickets}</DialogContentText>
-          <DialogContentText>
-            {/* eslint-disable-next-line max-len */}
-            Total price: {allTicketsInfo.priceAll} USD
-          </DialogContentText>
-          <BaseInput
+          <DialogContentText>Total price: {allTicketsInfo.priceAll} USD</DialogContentText>
+          <TextField
             label="Full user name:"
             type="text"
             value={values.userFullName}

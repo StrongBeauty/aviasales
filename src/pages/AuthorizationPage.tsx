@@ -6,11 +6,11 @@ import { AuthenticationForm, RegistrationForm } from '../forms';
 
 export const AuthorizationPage: FC = () => {
   const [activeForm, setActiveForm] = useState<boolean>(false);
-  const [getHeight, setHeight] = useState(0);
+  const [getHeight, setHeight] = useState<number | undefined>(0);
 
   const formControl = {
     formStyles: () => {
-      const dynamicHeight = { minHeight: `${getHeight + 200}px` };
+      const dynamicHeight = { minHeight: `${getHeight ? getHeight + 200 : 0}px` };
       if (activeForm) {
         return dynamicHeight;
       }

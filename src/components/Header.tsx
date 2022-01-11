@@ -18,18 +18,20 @@ export const Header: FC = () => {
   const location = useLocation();
   const { menuItems, menuItemExit } = MESSAGES.header;
 
-  const handleMenu = (event: { currentTarget: React.SetStateAction<null> }) => {
+  const handleMenu = (event: React.BaseSyntheticEvent) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const onSubmit = () => {
-    dispatch(actions.toggleIsAuthAC(!isAuth, ''));
+
+  const onExit = () => {
+    setAnchorEl(null);
+    dispatch(actions.toggleIsAuthAC(false, ''));
   };
 
   return (
-    <AppBar sx={{ borderRadius: '4px 4px 0px 0px' }} color="common" position="static">
+    <AppBar sx={{ borderRadius: '4px 4px 0px 0px' }} color="secondary" position="static">
       <Toolbar>
         <Typography
           style={{ display: 'flex' }}
@@ -45,22 +47,11 @@ export const Header: FC = () => {
             <LocalAirportRoundedIcon sx={{ color: '#4881FF' }} />
           )}
         </Typography>
-        {location.pathname !== '/' && (
-          <SLink to="/" sx={{ padding: '100px' }}>
-            Home
-          </SLink>
-        )}
+        {location.pathname !== '/' && <SLink to="/">Home</SLink>}
         {location.pathname !== '/auth' && !isAuth && <SLink to="/auth">Log in/Sign up</SLink>}
         {isAuth && (
           <div>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
+            <IconButton size="large" onClick={(event) => handleMenu(event)} color="inherit">
               <PersonIcon />
             </IconButton>
             <Menu
@@ -83,10 +74,8 @@ export const Header: FC = () => {
                   <SLink to={item.link}>{item.title}</SLink>
                 </MenuItem>
               ))}
-              <MenuItem onClick={handleClose}>
-                <SLink to={menuItemExit.link} onClick={onSubmit}>
-                  {menuItemExit.title}
-                </SLink>
+              <MenuItem onClick={onExit}>
+                <SLink to={menuItemExit.link}>{menuItemExit.title}</SLink>
               </MenuItem>
             </Menu>
             <b style={{ paddingLeft: '16px' }}>{userName}</b>

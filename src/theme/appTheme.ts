@@ -1,6 +1,6 @@
 import createTheme from '@mui/material/styles/createTheme';
 
-const appTheme = createTheme({
+export const appTheme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
@@ -57,14 +57,14 @@ const appTheme = createTheme({
       main: '#4881FF',
     },
     secondary: {
-      main: '#D9E0F4',
+      main: '#fff',
     },
     background: {
       paper: '#fff',
       default: '#D9E0F4',
     },
     common: {
-      white: '#fff',
+      white: '#D9E0F4',
     },
   },
   typography: {
@@ -95,5 +95,3 @@ const appTheme = createTheme({
     borderRadius: 6,
   },
 } as const);
-
-export { appTheme };
