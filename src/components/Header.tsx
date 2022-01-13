@@ -5,13 +5,12 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useLocation } from 'react-router';
 import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch } from 'redux';
 import { SLink } from '../styled';
 import { MESSAGES } from '../constants';
-import { actions, ActionsType, Selectors } from '../store';
+import { Selectors, toggleIsAuthAC } from '../store';
 
 export const Header: FC = () => {
-  const dispatch = useDispatch<Dispatch<ActionsType>>();
+  const dispatch = useDispatch();
   const isAuth = useSelector(Selectors.isAuth);
   const userName = useSelector(Selectors.userName);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,7 +26,7 @@ export const Header: FC = () => {
 
   const onExit = () => {
     setAnchorEl(null);
-    dispatch(actions.toggleIsAuthAC(false, ''));
+    dispatch(toggleIsAuthAC(false, ''));
   };
 
   return (

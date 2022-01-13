@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { DateFilter, FormInput, FormSelect } from '../components';
 import { SFilterForm } from '../styled';
 import { MESSAGES } from '../constants';
-import { actions, Selectors } from '../store';
+import { selectedFiltersAC, Selectors } from '../store';
 import { FieldValues, FormValues } from './HomeForm';
 
 export const FiltersForm: React.FC = () => {
@@ -29,7 +29,7 @@ export const FiltersForm: React.FC = () => {
       year: 'numeric',
     }).replace(/\//g, '.');
     dispatch(
-      actions.selectedFiltersAC([
+      selectedFiltersAC([
         {
           title: 'from',
           value: data.From,

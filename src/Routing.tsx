@@ -2,13 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { AuthorizationPage, HomePage, InformationPage, NotFoundPage, ResultPage } from './pages';
-
-type RootState = {
-  isDirect: boolean;
-};
+import { Selectors } from './store';
 
 export const Routing: React.FC = () => {
-  const isDirect: boolean = useSelector((state: RootState) => state.isDirect);
+  const isDirect = useSelector(Selectors.isDirect);
   if (isDirect) {
     return (
       <Routes>

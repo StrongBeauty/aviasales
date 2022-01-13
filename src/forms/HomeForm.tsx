@@ -10,7 +10,7 @@ import { DateFilter, FormInput } from '../components';
 import { SHomeForm } from '../styled';
 import { loadApi } from '../api/api';
 import { MESSAGES } from '../constants';
-import { actions } from '../store';
+import { selectedFiltersAC, toggleIsDirectAC, tripsCardAC } from '../store';
 
 export type FieldValues = Record<string, any>;
 
@@ -42,7 +42,7 @@ export const HomeForm: React.FC = () => {
     }).replace(/\//g, '.');
 
     dispatch(
-      actions.selectedFiltersAC([
+      selectedFiltersAC([
         {
           title: 'from',
           value: data.From,
@@ -66,10 +66,10 @@ export const HomeForm: React.FC = () => {
       ])
     );
 
-    loadApi(data.From, data.To, formDate).then((result) => dispatch(actions.tripsCardAC(result)));
+    loadApi(data.From, data.To, formDate).then((result) => dispatch(tripsCardAC(result)));
 
     if (data.From === '' || data.To === '') navigate('/', { replace: true });
-    dispatch(actions.toggleIsDirectAC(true));
+    dispatch(toggleIsDirectAC(true));
     navigate('../result', { replace: true });
   };
 

@@ -18,15 +18,7 @@ export type AlignItemsType =
   | 'baseline'
   | 'normal';
 
-export type JustifyContentType =
-  | 'flex-start'
-  | 'flex-end'
-  | 'center'
-  | 'stretch'
-  | 'baseline'
-  | 'space-between'
-  | 'space-around'
-  | 'normal';
+export type JustifyContentType = AlignItemsType | 'space-between' | 'space-around';
 
 export const SBox = styled(Box)<SBoxPropsType>(
   (props: SBoxPropsType) => `

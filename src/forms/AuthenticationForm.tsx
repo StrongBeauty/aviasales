@@ -1,11 +1,10 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { MESSAGES } from '../constants';
-import { actions, Selectors } from '../store';
+import { Selectors, toggleIsAuthAC } from '../store';
 
 const { formTitle, buttonName, username, checkboxForm, password, forgotLink, errorsMessage } =
   MESSAGES.authenticationForm;
@@ -34,11 +33,10 @@ export const AuthenticationForm: FC<FormProps> = ({ formControl }) => {
     formState: { errors },
   } = useForm<FormValues>();
   const dispatch = useDispatch();
-  const isAuth = useSelector(Selectors.isAuth);
   const navigate = useNavigate();
 
   const onSubmit = (data: DataType) => {
-    dispatch(actions.toggleIsAuthAC(!isAuth, data.username));
+    dispatch(toggleIsAuthAC(true, data.username));
     navigate(-1);
   };
 
@@ -68,7 +66,7 @@ export const AuthenticationForm: FC<FormProps> = ({ formControl }) => {
               type="password"
               {...register('password', {
                 validate: {
-                  passwordLenght: (value) => value.length >= 5,
+                  passwordLength: (value) => value.length >= 5,
                 },
               })}
             />

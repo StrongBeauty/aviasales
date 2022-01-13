@@ -11,9 +11,9 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { postApi } from '../api/api';
 import { ButtonPrimary } from './ButtonPrimary';
-import { actions } from '../store';
 import { stateCard, userName } from '../store/selectors';
 import { TicketTransactions } from '../services/TicketTransactions';
+import { errorAlertAC } from '../store';
 
 type FormDialogPropsType = {
   buttonName: string;
@@ -73,11 +73,11 @@ export const FormDialog: React.FC<FormDialogPropsType> = ({
 
     postApi(allTicketsInfo.tripId, allTicketsInfo)
       .then((result) => {
-        if (result === 200) return dispatch(actions.errorAlertAC('success'));
-        return dispatch(actions.errorAlertAC('Not sent.'));
+        if (result === 200) return dispatch(errorAlertAC('success'));
+        return dispatch(errorAlertAC('Not sent.'));
       })
       .then(() => {
-        setTimeout(() => dispatch(actions.errorAlertAC('')), 4000);
+        setTimeout(() => dispatch(errorAlertAC('')), 4000);
       });
   };
 

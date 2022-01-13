@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { FC, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Button from '@mui/material/Button';

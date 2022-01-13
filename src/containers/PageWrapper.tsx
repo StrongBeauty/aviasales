@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SBox, AlignItemsType, JustifyContentType, FlexDirectionType } from '../styled';
-import { actions, Selectors } from '../store';
+import { loadImageAC, Selectors } from '../store';
 
 type PageWrapperPropsType = {
   children: React.ReactNode;
@@ -21,7 +21,7 @@ export const PageWrapper: React.FC<PageWrapperPropsType> = (props: PageWrapperPr
   let backgroundUrl = backgroundImage;
   if (backgroundImage === '') {
     backgroundUrl = `/backgrounds/${getRandomNum()}.jpg`;
-    dispatch(actions.loadImageAC(`/backgrounds/${getRandomNum()}.jpg`));
+    dispatch(loadImageAC(`/backgrounds/${getRandomNum()}.jpg`));
   }
 
   return (

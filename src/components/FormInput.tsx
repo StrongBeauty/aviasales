@@ -14,7 +14,7 @@ export const FormInput: React.FC<UseControllerFormInputProps> = ({
   name,
   label,
   isRequired,
-}) => {
+}: UseControllerFormInputProps) => {
   const {
     field: { onChange, onBlur, value, ref },
     /*    fieldState: { invalid, isTouched, isDirty },
